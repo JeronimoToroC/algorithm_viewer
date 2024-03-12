@@ -29,20 +29,20 @@ export default {
                         background: '#00030f',
                         foreground: '#ffffff',
                         primary: {
-                            50: '#161b2f', // Azul profundo y sutil
-                            100: '#16203a', // Azul oscuro con un toque de brillo
-                            200: '#163075', // Azul oscuro más claro
-                            300: '#1640b0', // Azul mediano con un toque más vibrante
-                            400: '#1655eb', // Azul vivo y brillante
-                            500: '#2967ff', // Azul principal por defecto, claro y llamativo
-                            600: '#4d7eff', // Azul claro vibrante
-                            700: '#7094ff', // Azul más claro aún
-                            800: '#93aaff', // Azul pálido y suave
-                            900: '#b6c0ff', // El azul más claro de la gama, casi pastel
-                            DEFAULT: '#2967ff', // Azul principal por defecto
-                            foreground: '#ffffff', // Blanco para texto sobre el color primario
+                            50: '#161b2f',
+                            100: '#16203a',
+                            200: '#163075',
+                            300: '#1640b0',
+                            400: '#1655eb',
+                            500: '#2967ff',
+                            600: '#4d7eff',
+                            700: '#7094ff',
+                            800: '#93aaff',
+                            900: '#b6c0ff',
+                            DEFAULT: '#2967ff',
+                            foreground: '#ffffff',
                         },
-                        focus: '#7094ff', // Azul utilizado para el foco, más claro que el DEFAULT
+                        focus: '#7094ff',
                     },
                     layout: {
                         disabledOpacity: '0.3', // Opacidad para elementos deshabilitados

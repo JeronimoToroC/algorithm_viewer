@@ -1,10 +1,16 @@
+import Layout from './layouts/Layout'
+import Home from './views/Home'
+import GraphMakerPage from './views/GraphMakerPage'
+import { Route, Routes } from 'react-router-dom'
+
 function App(): JSX.Element {
     return (
-        <>
-            <div className="grid-cols-1' grid h-screen grid-rows-[54px_1fr] text-sky-900">
-                Hola Mundo
-            </div>
-        </>
+        <Layout>
+            <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/graph-maker" element={<GraphMakerPage />} />
+            </Routes>
+        </Layout>
     )
 }
 export default App

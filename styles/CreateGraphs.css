@@ -1,0 +1,20 @@
+.updatenode__controls {
+    right: 10px;
+    top: 10px;
+    font-size: 12px;
+    width: 4rem;
+}
+
+.updatenode__controls label {
+    display: block;
+}
+
+.updatenode__bglabel {
+    margin-top: 10px;
+}
+
+.updatenode__checkboxwrapper {
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+}

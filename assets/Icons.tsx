@@ -23,7 +23,7 @@ export const ChevronDown = ({
             {...props}
         >
             <path
-                d="m19.92 8.95-6.52 6.52c-.77.77-2.03.77-2.8 0L4.08 8.95"
+                d="M7.41 8.58L12 13.17l4.59-4.59L18 10l-6 6l-6-6z"
                 stroke={fill}
                 strokeLinecap="round"
                 strokeLinejoin="round"
@@ -252,18 +252,11 @@ export const Create = ({
             {...props}
         >
             <path
-                d="M9 22h6c5 0 7-2 7-7V9c0-5-2-7-7-7H9C4 2 2 4 2 9v6c0 5 2 7 7 7ZM18 6 6"
+                d="m9.508 4.067l-5 2.857A2 2 0 0 0 3.5 8.661V15.5a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8.66a2 2 0 0 0-1.008-1.736l-5-2.857a2 2 0 0 0-1.984 0M10.5 8.5v6m-3-3h6"
                 stroke={fill}
                 strokeLinecap="round"
                 strokeLinejoin="round"
                 strokeWidth={1.5}
-            />
-            <path
-                stroke={fill}
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={1.5}
-                d="M5 12h14m-7 7V5"
             />
         </svg>
     )
@@ -416,8 +409,127 @@ export const DeleteIcon = ({
     )
 }
 
+export const Import = ({
+    fill = 'currentColor',
+    size,
+    height,
+    width,
+    ...props
+}: IconProps) => {
+    return (
+        <svg
+            aria-hidden="true"
+            fill="none"
+            focusable="false"
+            height={size || height}
+            width={size || width}
+            role="presentation"
+            viewBox="0 0 24 24"
+            {...props}
+        >
+            <g fill="none">
+                <path
+                    fill={fill}
+                    d="m12 14l-.707.707l.707.707l.707-.707zm1-9a1 1 0 1 0-2 0zM6.293 9.707l5 5l1.414-1.414l-5-5zm6.414 5l5-5l-1.414-1.414l-5 5zM13 14V5h-2v9z"
+                />
+                <path
+                    stroke={fill}
+                    strokeWidth="2"
+                    d="M5 16v1a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-1"
+                />
+            </g>
+        </svg>
+    )
+}
+export const Export = ({
+    fill = 'currentColor',
+    size,
+    height,
+    width,
+    ...props
+}: IconProps) => {
+    return (
+        <svg
+            aria-hidden="true"
+            fill="none"
+            focusable="false"
+            height={size || height}
+            width={size || width}
+            role="presentation"
+            viewBox="0 0 24 24"
+            {...props}
+        >
+            <g fill="none">
+                <path
+                    fill={fill}
+                    d="m12 5l-.707-.707l.707-.707l.707.707zm1 9a1 1 0 1 1-2 0zM6.293 9.293l5-5l1.414 1.414l-5 5zm6.414-5l5 5l-1.414 1.414l-5-5zM13 5v9h-2V5z"
+                />
+                <path
+                    stroke={fill}
+                    strokeWidth="2"
+                    d="M5 16v1a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-1"
+                />
+            </g>
+        </svg>
+    )
+}
+
+export const ChevronRight = ({
+    fill = 'currentColor',
+    size,
+    height,
+    width,
+    ...props
+}: IconProps) => {
+    return (
+        <svg
+            fill="none"
+            height={size || height || 24}
+            viewBox="0 0 24 24"
+            width={size || width || 24}
+            xmlns="http://www.w3.org/2000/svg"
+            {...props}
+        >
+            <path
+                d="m13.292 12l-4.6-4.6l.708-.708L14.708 12L9.4 17.308l-.708-.708z"
+                stroke={fill}
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeMiterlimit={10}
+                strokeWidth={1.5}
+            />
+        </svg>
+    )
+}
+
+export const CustomGraph = ({
+    fill = 'currentColor',
+    size,
+    height,
+    width,
+    ...props
+}: IconProps) => {
+    return (
+        <svg
+            fill="none"
+            height={size || height || 24}
+            viewBox="0 0 32 32"
+            width={size || width || 24}
+            xmlns="http://www.w3.org/2000/svg"
+            {...props}
+        >
+            <path
+                d="M30 6a3.992 3.992 0 0 0-7.977-.224L9.586 8.263A3.99 3.99 0 1 0 5 13.858v8.284A3.992 3.992 0 1 0 9.858 27h8.284a3.991 3.991 0 1 0 5.595-4.586l2.487-12.437A3.995 3.995 0 0 0 30 6m-4-2a2 2 0 1 1-2 2a2.002 2.002 0 0 1 2-2M4 10a2 2 0 1 1 2 2a2.002 2.002 0 0 1-2-2m2 18a2 2 0 1 1 2-2a2.002 2.002 0 0 1-2 2m12.142-3H9.858A3.994 3.994 0 0 0 7 22.142v-8.284a3.987 3.987 0 0 0 2.977-3.634l12.437-2.487a4.005 4.005 0 0 0 1.849 1.85l-2.487 12.436A3.987 3.987 0 0 0 18.142 25M22 28a2 2 0 1 1 2-2a2.002 2.002 0 0 1-2 2"
+                stroke={fill}
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={1.5}
+            />
+        </svg>
+    )
+}
 export const icons = {
-    chevron: <ChevronDown fill="currentColor" size={16} />,
+    chevronDown: <ChevronDown fill="currentColor" size={20} />,
     scale: <Scale className="text-warning" fill="currentColor" size={30} />,
     lock: <Lock className="text-success" fill="currentColor" size={30} />,
     activity: (
@@ -433,5 +545,13 @@ export const icons = {
         <DeleteIcon className="text-danger" fill="currentColor" size={30} />
     ),
     edit: <EditIcon className="text-primary" fill="currentColor" size={30} />,
+    import: <Import className="text-primary" fill="currentColor" size={30} />,
+    export: <Export className="text-primary" fill="currentColor" size={30} />,
+    chevronRight: (
+        <ChevronRight className="text-primary" fill="currentColor" size={30} />
+    ),
+    customGraph: (
+        <CustomGraph className="text-primary" fill="currentColor" size={30} />
+    ),
 }
 //TODO: Se deben cambiar los nombres de los iconos para que sean más descriptivos

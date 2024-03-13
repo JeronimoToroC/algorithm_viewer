@@ -1,17 +1,32 @@
-import { Listbox, ListboxItem, ListboxSection, cn } from '@nextui-org/react'
-import { DeleteIcon, EditIcon } from '../../assets/Icons.tsx'
+import {
+    Listbox,
+    ListboxItem,
+    ListboxSection,
+    cn,
+    useDisclosure,
+} from '@nextui-org/react'
+import {
+    CustomGraph,
+    DeleteIcon,
+    EditIcon,
+    Export,
+    Import,
+} from '../../assets/Icons.tsx'
+import CustomGraphModal from './CustomGraphModal.tsx'
 const GraphTools = () => {
     const iconClasses =
         'text-xl text-default-500 pointer-events-none flex-shrink-0'
+    const { isOpen, onOpen, onOpenChange } = useDisclosure()
+
     return (
         <article className="col-span-2 rounded-small border-medium border-primary-50 px-1 py-2 text-center text-2xl text-white blue-dark">
             <Listbox variant="flat" aria-label="Listbox menu with sections">
                 <ListboxSection title="Actions" showDivider>
                     <ListboxItem
-                        key="edit"
-                        description="Allows you to edit the file"
+                        key="import"
+                        description="Allows you to import a graph"
                         startContent={
-                            <EditIcon
+                            <Import
                                 className={iconClasses}
                                 fill="currentColor"
                                 size={30}
@@ -21,14 +36,20 @@ const GraphTools = () => {
                         Import
                     </ListboxItem>
                     <ListboxItem
-                        key="edit"
-                        description="Allows you to edit the file"
+                        key="export"
+                        description="Allows you to export a graph"
                         startContent={
-                            <EditIcon
-                                className={iconClasses}
-                                fill="currentColor"
-                                size={30}
-                            />
+                            <div
+                                className={cn(
+                                    'flex h-7 w-7 items-center justify-center rounded-small text-success'
+                                )}
+                            >
+                                <Export
+                                    className={iconClasses}
+                                    fill="currentColor"
+                                    size={30}
+                                />
+                            </div>
                         }
                     >
                         Export
@@ -36,8 +57,22 @@ const GraphTools = () => {
                 </ListboxSection>
                 <ListboxSection title="Tools" showDivider>
                     <ListboxItem
-                        key="edit"
-                        description="Allows you to edit the file"
+                        key="customGraph"
+                        description="Allows you to create a customized graph"
+                        startContent={
+                            <CustomGraph
+                                className={`${iconClasses} -mt-4`}
+                                fill="currentColor"
+                                size={30}
+                            />
+                        }
+                        onPress={onOpen}
+                    >
+                        Custom graph
+                    </ListboxItem>
+                    <ListboxItem
+                        key="add"
+                        description="Allows you to add a new node"
                         startContent={
                             <EditIcon
                                 className={iconClasses}
@@ -46,15 +81,15 @@ const GraphTools = () => {
                             />
                         }
                     >
-                        Import
+                        Add nodes
                     </ListboxItem>
                 </ListboxSection>
-                <ListboxSection title="Danger zone">
+                <ListboxSection>
                     <ListboxItem
                         key="delete"
                         className="text-danger"
                         color="danger"
-                        description="Permanently delete the file"
+                        description="Permanently delete the graph"
                         startContent={
                             <DeleteIcon
                                 className={cn(iconClasses, 'text-danger')}
@@ -63,10 +98,11 @@ const GraphTools = () => {
                             />
                         }
                     >
-                        Delete file
+                        Delete graph
                     </ListboxItem>
                 </ListboxSection>
             </Listbox>
+            <CustomGraphModal isOpen={isOpen} onOpenChange={onOpenChange} />
         </article>
     )
 }

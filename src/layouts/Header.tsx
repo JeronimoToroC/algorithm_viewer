@@ -59,8 +59,7 @@ export default function Header() {
                             <Button
                                 disableRipple
                                 className="bg-transparent p-0 data-[hover=true]:bg-transparent"
-                                endContent={icons.chevron}
-                                radius="sm"
+                                endContent={icons.chevronDown}
                                 variant="light"
                             >
                                 Options
@@ -107,10 +106,9 @@ export default function Header() {
 
                 <NavbarItem className="flex justify-center text-center">
                     <Create
-                        height={20}
-                        width={20}
+                        size={30}
                         fill="currentColor"
-                        className="mr-1 mt-0.5 text-primary"
+                        className="text-primary"
                     />
                     <Link
                         href="/graph-maker"

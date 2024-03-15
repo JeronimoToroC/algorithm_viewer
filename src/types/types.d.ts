@@ -2,8 +2,9 @@
 export type NodeType = 'Object' | 'function' | ' '
 
 export interface INodeLinkedTo {
-    nodeId: number
-    weight: number
+    target: number
+    source: number
+    weight?: number
 }
 
 export interface INodeCoordinates {

@@ -17,11 +17,10 @@ interface UpdateNodeProps {
 const UpdateNode: FC<UpdateNodeProps> = ({ initialNodes, selectedNode, setNodes, setSelectedNode, setEdges }) => {
     const [nodeValue, setNodeValue] = useState(0);
     const [nodeName, setNodeName] = useState("");
-    const [nodeBg, setNodeBg] = useState('#eee');
+    const [nodeBg, setNodeBg] = useState("#rrggbb");
     const [nodeHidden, setNodeHidden] = useState(false);
     const [nodeWidth, setNodeWidth] = useState(150); // Valor inicial arbitrario
     const [nodeHeight, setNodeHeight] = useState(50); // Valor inicial arbitrario
-
 
     useEffect(() => {
         // Solo proceder si hay un nodo seleccionado y hay nodos iniciales
@@ -33,7 +32,7 @@ const UpdateNode: FC<UpdateNodeProps> = ({ initialNodes, selectedNode, setNodes,
                         ...node,
                         data: {
                             ...node.data,
-                            label: `Etiqueta: ${nodeName} - Valor: ${nodeValue}`,
+                            label: ` ${nodeName != "" ? "Etiqueta:" + nodeName + "- Valor: " + nodeValue : selectedNode?.data?.label}`,
                             value: nodeValue,
                         },
                     };
@@ -55,7 +54,7 @@ const UpdateNode: FC<UpdateNodeProps> = ({ initialNodes, selectedNode, setNodes,
                 },
             });
         }
-    }, [nodeName, nodeValue, initialNodes]);
+    }, [nodeName, nodeValue]);
 
     useEffect(() => {
         setNodes((nds) =>
@@ -100,19 +99,19 @@ const UpdateNode: FC<UpdateNodeProps> = ({ initialNodes, selectedNode, setNodes,
             })
         );
     }, [nodeHidden, selectedNode]);
-
+    //TODO: CAMBIAR FORMULARIO GENERICO A FORMIK
     return (
         <>
             {selectedNode && (
-                <div className="w-full grid grid-cols-4">
+                <div className="w-full grid grid-cols-7 border border-slate-800">
                     <div className='col-start-1 m-2 p-2'>
 
                         <label>Etiqueta:</label>
-                        <input className='w-30 m-2' value={nodeName} onChange={(evt) => setNodeName(evt.target.value)} />
+                        <input className='m-2' value={nodeName} onChange={(evt) => setNodeName(evt.target.value)} />
                     </div>
-                    <div className='col-start-2 m-2 p-2'>
+                    <div className='col-start-3 m-2 p-2'>
                         <label>Valor:</label>
-                        <input value={nodeValue} className='w-30 m-2' onChange={(evt) => {
+                        <input value={nodeValue} className='m-2' onChange={(evt) => {
                             const value = parseInt(evt.target.value, 10); // Intenta convertir el valor del input a un entero
                             if (!isNaN(value)) { // Comprueba si el valor es un número
                                 setNodeValue(value); // Si es un número, actualiza el estado
@@ -121,18 +120,18 @@ const UpdateNode: FC<UpdateNodeProps> = ({ initialNodes, selectedNode, setNodes,
                             }
                         }} />
                     </div>
-                    <div className='col-start-3 m-2 p-2'>
+                    <div className='col-start-5 m-2 p-2'>
                         <label>Ancho:</label>
                         <input
-                            className='col-start-2 m-2 p-2'
+                            className='m-2'
                             value={nodeWidth}
                             onChange={(evt) => setNodeWidth(Number(evt.target.value))}
                         />
                     </div>
-                    <div className='col-start-4 m-2 p-2'>
+                    <div className='col-start-7 m-2 p-2'>
                         <label>Altura:</label>
                         <input
-                            className='col-start-2 m-2 p-2'
+                            className='m-2'
                             value={nodeHeight}
                             onChange={(evt) => setNodeHeight(Number(evt.target.value))}
                         />
@@ -141,13 +140,20 @@ const UpdateNode: FC<UpdateNodeProps> = ({ initialNodes, selectedNode, setNodes,
 
                     <div className='col-start-1 mr-4'>
                         <label className="updatenode__bglabel">background:</label>
-                        <input className='col-start-2 m-2 p-2' value={nodeBg} onChange={(evt) => setNodeBg(evt.target.value)} />
-
+                        <div className='m-2'>
+                            <div className='m-2 bg-gray-600'>
+                                <input
+                                    type="color"
+                                    value={nodeBg}
+                                    onChange={(evt) => setNodeBg(evt.target.value)}
+                                />
+                            </div>
+                        </div>
                     </div>
-                    <div className="updatenode__checkboxwrapper col-start-2 m-2 p-2">
+                    <div className="updatenode__checkboxwrapper col-start-3 m-2 p-2">
                         <label>hidden:</label>
                         <input
-                            className='col-start-2 m-2 p-2'
+                            className='m-2 p-2'
                             type="checkbox"
                             checked={nodeHidden}
                             onChange={(evt) => setNodeHidden(evt.target.checked)}

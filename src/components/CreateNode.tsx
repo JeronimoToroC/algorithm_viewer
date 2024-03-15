@@ -8,10 +8,12 @@ interface CreateNodeProps {
     onEdgesChange: OnEdgesChange;
     onPaneClick: (event: React.MouseEvent) => void
     onConnect: OnConnect;
-    onNodeClick: (event: React.MouseEvent, node: Node) => void // Esto es opcional dependiendo de tu lógica
+    onNodeClick: (event: React.MouseEvent, node: Node) => void
+    onEdgeClick: (event: React.MouseEvent, edge: Edge) => void
+    // Esto es opcional dependiendo de tu lógica
 }
 
-const CreateNode: React.FC<CreateNodeProps> = ({ nodes, edges, onNodesChange, onEdgesChange, onConnect, onNodeClick, onPaneClick }) => {
+const CreateNode: React.FC<CreateNodeProps> = ({ nodes, edges, onNodesChange, onEdgesChange, onConnect, onNodeClick, onPaneClick, onEdgeClick }) => {
     return (
         <div style={{ height: 500 }}>
             <ReactFlow
@@ -21,6 +23,7 @@ const CreateNode: React.FC<CreateNodeProps> = ({ nodes, edges, onNodesChange, on
                 onEdgesChange={onEdgesChange}
                 onConnect={onConnect}
                 onNodeClick={onNodeClick}
+                onEdgeClick={onEdgeClick}
                 onPaneClick={onPaneClick}
                 fitView
             >

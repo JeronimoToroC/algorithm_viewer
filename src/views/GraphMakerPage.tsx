@@ -2,8 +2,11 @@ import React, { useCallback, useState } from 'react';
 import CreateNode from '@/components/CreateNode';
 import GraphTools from '@/components/GraphTools';
 import UpdateNode from '@/components/UpdateNode';
-import { Node, Connection, addEdge, useEdgesState, useNodesState } from 'reactflow';
+import { Node, Connection, addEdge, useEdgesState, useNodesState, Edge } from 'reactflow';
 import 'reactflow/dist/style.css';
+import UpdateEdge from '@/components/UpdateEdge';
+import DeleteNode from '@/components/DeleteNode';
+import DeleteEdge from '@/components/DeleteEdge';
 
 //TODO: PASAR LOS DEMAS HOOKS A LA RESPECTIVA CARPETA
 const GraphMakerPage = () => {
@@ -15,9 +18,9 @@ const GraphMakerPage = () => {
     const [nodes, setNodes, onNodesChange] = useNodesState([]);
     const [edges, setEdges, onEdgesChange] = useEdgesState([]);
     const [selectedNode, setSelectedNode] = useState<Node | null>(null);
-
+    const [selectedEdge, setSelectedEdge] = useState<Edge | null>(null);
     const onConnect = useCallback((connection: Connection) => {
-        setEdges((eds) => addEdge({ ...connection, id: `e${eds.length}` }, eds));
+        setEdges((eds) => addEdge({ ...connection, id: `${eds.length + 1}` }, eds));
     }, [setEdges]);
 
     const addNode = useCallback(() => {
@@ -36,7 +39,15 @@ const GraphMakerPage = () => {
         setSelectedNode(node);
     }, []);
 
-    const onPaneClick = useCallback(() => setSelectedNode(null), []);
+    const onEdgeClick = useCallback((event: React.MouseEvent, edge: Edge) => {
+        event.stopPropagation();
+        setSelectedEdge(edge);
+    }, []);
+
+    const onPaneClick = useCallback(() => {
+        setSelectedNode(null)
+        setSelectedEdge(null)
+    }, []);
 
     return (
         <section className="container grid h-full w-full grid-cols-12 gap-x-2 p-4">
@@ -50,9 +61,21 @@ const GraphMakerPage = () => {
                     onConnect={onConnect}
                     onPaneClick={onPaneClick}
                     onNodeClick={onNodeClick}
+                    onEdgeClick={onEdgeClick}
                 />
                 {selectedNode && (
                     <div className='overflow-x-clip'>
+                        <DeleteNode
+                            initialNodes={nodes}
+                            initialEdges={edges}
+                            selectedEdge={selectedEdge}
+                            selectedNode={selectedNode}
+                            setEdges={setEdges}
+                            setNodes={setNodes}
+                            setSelectedEdge={setSelectedEdge}
+                            setSelectedNode={setSelectedNode}
+                            onPaneClick={onPaneClick}
+                        />
                         <UpdateNode
                             setEdges={setEdges}
                             initialNodes={nodes}
@@ -60,6 +83,26 @@ const GraphMakerPage = () => {
                             onNodesChange={onNodesChange}
                             setSelectedNode={setSelectedNode}
                             setNodes={setNodes}
+                            onPaneClick={onPaneClick}
+                        />
+                    </div>
+                )}
+                {selectedEdge && (
+                    <div className='overflow-x-clip'>
+                        <DeleteEdge
+                            initialEdges={edges}
+                            selectedEdge={selectedEdge}
+                            setEdges={setEdges}
+                            setSelectedEdge={setSelectedEdge}
+                            onPaneClick={onPaneClick}
+                        />
+                        <UpdateEdge
+                            initialNodes={nodes}
+                            setEdges={setEdges}
+                            initialEdges={edges}
+                            selectedEdge={selectedEdge}
+                            onEdgesChange={onEdgesChange}
+                            setSelectedEdge={setSelectedEdge}
                             onPaneClick={onPaneClick}
                         />
                     </div>

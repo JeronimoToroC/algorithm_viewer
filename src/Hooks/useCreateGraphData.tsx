@@ -9,7 +9,6 @@ export const createGraphData = (
     const graph: IGraph = {
         name: graphName,
         nodes: nodes.map((node): INode => {
-            //console.log("Marlon hook node", node)
             // Asume que la posición ya está definida en `node.position`
             // y que `node.data` contiene la información que necesitas para `INode`
             const linkedTo: INodeLinkedTo[] = edges

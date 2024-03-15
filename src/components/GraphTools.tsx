@@ -13,7 +13,11 @@ import {
     Import,
 } from '../../assets/Icons.tsx'
 import CustomGraphModal from './CustomGraphModal.tsx'
-const GraphTools = () => {
+interface GraphToolsProps {
+    addNode: () => void;
+}
+
+const GraphTools: React.FC<GraphToolsProps> = ({ addNode }) => {
     const iconClasses =
         'text-xl text-default-500 pointer-events-none flex-shrink-0'
     const { isOpen, onOpen, onOpenChange } = useDisclosure()
@@ -80,6 +84,7 @@ const GraphTools = () => {
                                 size={30}
                             />
                         }
+                        onClick={addNode}
                     >
                         Add nodes
                     </ListboxItem>

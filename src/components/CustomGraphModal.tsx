@@ -1,3 +1,4 @@
+import { IGraph } from '@/types/types'
 import {
     Modal,
     ModalContent,
@@ -9,13 +10,24 @@ import {
     Switch,
     cn,
 } from '@nextui-org/react'
+import { setGraph } from '../../redux/graphSlice'
+import { useDispatch } from 'react-redux'
 
 interface CustomGraphModalProps {
     isOpen: boolean
     onOpenChange: () => void
+    graphData: IGraph
+    setGraphData: (graphData: IGraph) => void
 }
 
-const CustomGraphModal = ({ isOpen, onOpenChange }: CustomGraphModalProps) => {
+const CustomGraphModal = ({
+    isOpen,
+    onOpenChange,
+    graphData,
+    setGraphData,
+}: CustomGraphModalProps) => {
+    const dispatch = useDispatch()
+
     return (
         <Modal
             isOpen={isOpen}
@@ -31,10 +43,29 @@ const CustomGraphModal = ({ isOpen, onOpenChange }: CustomGraphModalProps) => {
                         <ModalBody>
                             <Input
                                 autoFocus
+                                label="name"
+                                placeholder="Enter a name of the graph"
+                                variant="bordered"
+                                type="text"
+                                onChange={(evt) =>
+                                    setGraphData({
+                                        ...graphData,
+                                        name: evt.target.value,
+                                    })
+                                }
+                            />
+                            <Input
+                                autoFocus
                                 label="nodes"
                                 placeholder="Enter number of nodes"
                                 variant="bordered"
                                 type="number"
+                                onChange={(evt) =>
+                                    setGraphData({
+                                        ...graphData,
+                                        nodesNumber: Number(evt.target.value),
+                                    })
+                                }
                             />
                             <Switch
                                 classNames={{
@@ -54,6 +85,12 @@ const CustomGraphModal = ({ isOpen, onOpenChange }: CustomGraphModalProps) => {
                                         'group-data-[selected]:group-data-[pressed]:ml-4'
                                     ),
                                 }}
+                                onChange={(event) =>
+                                    setGraphData({
+                                        ...graphData,
+                                        isConnected: event.target.checked,
+                                    })
+                                }
                             >
                                 <div className="flex flex-col gap-1">
                                     <p className="text-medium">
@@ -83,6 +120,12 @@ const CustomGraphModal = ({ isOpen, onOpenChange }: CustomGraphModalProps) => {
                                         'group-data-[selected]:group-data-[pressed]:ml-4'
                                     ),
                                 }}
+                                onChange={(event) =>
+                                    setGraphData({
+                                        ...graphData,
+                                        isComplete: event.target.checked,
+                                    })
+                                }
                             >
                                 <div className="flex flex-col gap-1">
                                     <p className="text-medium">
@@ -112,6 +155,12 @@ const CustomGraphModal = ({ isOpen, onOpenChange }: CustomGraphModalProps) => {
                                         'group-data-[selected]:group-data-[pressed]:ml-4'
                                     ),
                                 }}
+                                onChange={(event) =>
+                                    setGraphData({
+                                        ...graphData,
+                                        isWeighted: event.target.checked,
+                                    })
+                                }
                             >
                                 <div className="flex flex-col gap-1">
                                     <p className="text-medium">
@@ -141,6 +190,12 @@ const CustomGraphModal = ({ isOpen, onOpenChange }: CustomGraphModalProps) => {
                                         'group-data-[selected]:group-data-[pressed]:ml-4'
                                     ),
                                 }}
+                                onChange={(event) =>
+                                    setGraphData({
+                                        ...graphData,
+                                        isDirected: event.target.checked,
+                                    })
+                                }
                             >
                                 <div className="flex flex-col gap-1">
                                     <p className="text-medium">
@@ -161,7 +216,10 @@ const CustomGraphModal = ({ isOpen, onOpenChange }: CustomGraphModalProps) => {
                             >
                                 Close
                             </Button>
-                            <Button color="primary" onPress={onClose}>
+                            <Button
+                                color="primary"
+                                onClick={() => dispatch(setGraph(graphData))}
+                            >
                                 Generate
                             </Button>
                         </ModalFooter>

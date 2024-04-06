@@ -1,3 +1,5 @@
+import { Connection, Node } from 'reactflow'
+
 // GraphTypes.d.ts
 export type NodeType = 'Object' | 'function' | ' '
 
@@ -24,7 +26,9 @@ export interface INode {
 
 export interface IGraph {
     name: string
-    nodes: INode[]
+    nodes: Node[]
+    edges: Connection[]
+    nodesNumber: number
     isConnected: boolean
     isComplete: boolean
     isWeighted: boolean

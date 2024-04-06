@@ -4,6 +4,8 @@ import { createSlice } from '@reduxjs/toolkit'
 const initialState: IGraph = {
     name: '',
     nodes: [],
+    edges: [],
+    nodesNumber: 0,
     isConnected: false,
     isComplete: false,
     isWeighted: false,
@@ -18,6 +20,8 @@ export const graphSlice = createSlice({
             const {
                 name,
                 nodes,
+                edges,
+                nodesNumber,
                 isConnected,
                 isComplete,
                 isWeighted,
@@ -25,6 +29,8 @@ export const graphSlice = createSlice({
             } = action.payload
             state.name = name
             state.nodes = nodes
+            state.edges = edges
+            state.nodesNumber = nodesNumber
             state.isConnected = isConnected
             state.isComplete = isComplete
             state.isWeighted = isWeighted
@@ -33,7 +39,14 @@ export const graphSlice = createSlice({
         addNode: (state, action) => {
             state.nodes.push(action.payload)
         },
+        addNewEdge: (state, action) => {
+            state.edges = action.payload
+        },
+        addNodesNumber: (state, action) => {
+            state.nodesNumber = action.payload
+        },
     },
 })
-export const { setGraph, addNode } = graphSlice.actions
+export const { setGraph, addNode, addNodesNumber, addNewEdge } =
+    graphSlice.actions
 export default graphSlice.reducer

@@ -1,19 +1,34 @@
-import React from 'react';
-import ReactFlow, { Edge, Node, OnNodesChange, OnEdgesChange, OnConnect } from 'reactflow';
+import React from 'react'
+import ReactFlow, {
+    Edge,
+    Node,
+    OnNodesChange,
+    OnEdgesChange,
+    OnConnect,
+} from 'reactflow'
 
 interface CreateNodeProps {
-    nodes: Node[];
-    edges: Edge[];
-    onNodesChange: OnNodesChange;
-    onEdgesChange: OnEdgesChange;
+    nodes: Node[]
+    edges: Edge[]
+    onNodesChange: OnNodesChange
+    onEdgesChange: OnEdgesChange
     onPaneClick: (event: React.MouseEvent) => void
-    onConnect: OnConnect;
+    onConnect: OnConnect
     onNodeClick: (event: React.MouseEvent, node: Node) => void
     onEdgeClick: (event: React.MouseEvent, edge: Edge) => void
     // Esto es opcional dependiendo de tu lógica
 }
 
-const CreateNode: React.FC<CreateNodeProps> = ({ nodes, edges, onNodesChange, onEdgesChange, onConnect, onNodeClick, onPaneClick, onEdgeClick }) => {
+const CreateNode: React.FC<CreateNodeProps> = ({
+    nodes,
+    edges,
+    onNodesChange,
+    onEdgesChange,
+    onConnect,
+    onNodeClick,
+    onPaneClick,
+    onEdgeClick,
+}) => {
     return (
         <div style={{ height: 500 }}>
             <ReactFlow
@@ -26,11 +41,9 @@ const CreateNode: React.FC<CreateNodeProps> = ({ nodes, edges, onNodesChange, on
                 onEdgeClick={onEdgeClick}
                 onPaneClick={onPaneClick}
                 fitView
-            >
-                {/* Aquí podrías añadir nodos y aristas personalizados si es necesario */}
-            </ReactFlow>
+            ></ReactFlow>
         </div>
-    );
-};
+    )
+}
 
-export default CreateNode;
+export default CreateNode

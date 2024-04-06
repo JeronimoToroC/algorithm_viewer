@@ -1,43 +1,32 @@
-import { useCallback, useState } from "react";
-import { Node } from "reactflow";
-//TODO: Revisar hook que rompe la pagina cuando crea un nodo
+import { useCallback, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { addNode, addNodesNumber } from '../../redux/graphSlice'
+import { Node } from 'reactflow'
+import { IStore } from 'redux/store.ts'
 
-// Custom hook useCreateNodes
 export const useCreateNodes = () => {
-    // useState para mantener el estado de los nodos dentro del hook.
-    const [nodes, setNodes] = useState<Node[]>([]);
-
-    // El ID podría ser calculado con base al último nodo o una referencia.
-    let initialId = 0;
-    const getNodeId = () => `node_${initialId++}`;
-    // useCallback para el método agregarNodo.
-    const agregarNodo = useCallback(() => {
+    const [id, setId] = useState(0)
+    const getNodeId = () => {
+        setId(id + 1)
+        return id + 1
+    }
+    const dispatch = useDispatch()
+    const nodesNumberState: number = useSelector(
+        (state: IStore) => state.graph.nodesNumber
+    )
+    const addNewNode = useCallback(() => {
+        const count = nodesNumberState === 0 ? 1 : nodesNumberState + 1
+        const newNodeId = count.toString()
         const nuevoNodo: Node = {
-            id: getNodeId(),
+            id: newNodeId,
             type: 'default',
-            position: { x: Math.random() * window.innerWidth, y: Math.random() * window.innerHeight },
-            data: { label: `Nodo ${initialId}` },
-        };
-        setNodes((nds) => [...nds, nuevoNodo]);
-    }, [setNodes]);
-
-    const onNodesChange = useCallback((changes: any[]) => {
-        setNodes((nds) =>
-            nds.map((node) => {
-                const change = changes.find((c) => c.id === node.id);
-                if (change) {
-                    // Asumimos que el cambio es del tipo `NodeChange` que tiene una propiedad `position`.
-                    // Asegúrate de verificar la documentación o los tipos de `reactflow` para ver la estructura correcta.
-                    return {
-                        ...node,
-                        position: change.position,
-                        // Aquí puedes añadir cualquier otro cambio que necesites actualizar
-                    };
-                }
-                return node;
-            })
-        );
-    }, [setNodes]);
-
-    return { agregarNodo, nodes, onNodesChange };
-};
+            position: {
+                x: Math.random() * 100,
+                y: Math.random() * 100,
+            },
+            data: { label: `Nodo ${newNodeId}`, value: 0 },
+        }
+        return dispatch(addNode(nuevoNodo)) && dispatch(addNodesNumber(count))
+    }, [getNodeId])
+    return addNewNode
+}

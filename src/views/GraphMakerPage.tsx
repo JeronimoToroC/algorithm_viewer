@@ -31,6 +31,9 @@ const GraphMakerPage = () => {
     useEffect(() => {
         if (graph.nodes.length > 0) {
             setNodes(graph.nodes)
+            graph.edges.forEach((edge) => {
+                setEdges((eds) => addEdge(edge, eds))
+            })
         }
     }, [graph.nodes, graph.nodesNumber])
 
@@ -58,7 +61,7 @@ const GraphMakerPage = () => {
         if (edges.length > 0) {
             dispatch(addNewEdge(edges))
         }
-    }, [edges])
+    }, [graph.edges])
 
     const onConnect = useCallback(
         (connection: Connection) => {

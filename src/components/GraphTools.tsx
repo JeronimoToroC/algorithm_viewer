@@ -16,14 +16,16 @@ import {
 import CustomGraphModal from './CustomGraphModal.tsx'
 import { useState } from 'react'
 import { useCreateNodes } from '@/hooks/useCreateNodes.tsx'
-import { useSelector } from 'react-redux'
 import { IStore } from 'redux/store.ts'
 import { IGraph } from '@/types/types.js'
+import ImportModal from './ImportModal.tsx'
+import { useSelector } from 'react-redux'
 
 const iconClasses = 'text-xl text-default-500 pointer-events-none flex-shrink-0'
 
 const GraphTools: React.FC = () => {
     const { isOpen, onOpen, onOpenChange } = useDisclosure()
+    const [isImport, setImport] = useState(false)
     const graph = useSelector((state: IStore) => state.graph)
     const [graphData, setGraphData] = useState<IGraph>({
         name: '',
@@ -35,6 +37,18 @@ const GraphTools: React.FC = () => {
         isWeighted: false,
         isDirected: false,
     })
+
+    function exportGraph(graph: IGraph) {
+        const dataStr = `data:text/json;charset=utf-8,${encodeURIComponent(
+            JSON.stringify(graph)
+        )}`
+        const downloadAnchorNode = document.createElement('a')
+        downloadAnchorNode.setAttribute('href', dataStr)
+        downloadAnchorNode.setAttribute('download', `${graph.name}.json`)
+        document.body.appendChild(downloadAnchorNode) // required for firefox
+        downloadAnchorNode.click()
+        downloadAnchorNode.remove()
+    }
 
     return (
         <article className="col-span-2 rounded-small border-medium border-primary-50 px-1 py-2 text-center text-2xl text-white blue-dark">
@@ -50,6 +64,8 @@ const GraphTools: React.FC = () => {
                                 size={30}
                             />
                         }
+                        onClick={() => setImport(true)}
+                        onPress={onOpen}
                     >
                         Import
                     </ListboxItem>
@@ -69,9 +85,7 @@ const GraphTools: React.FC = () => {
                                 />
                             </div>
                         }
-                        onClick={() =>
-                            console.log('jeronimo Exporting graph: ', graph)
-                        }
+                        onClick={() => exportGraph(graph)}
                     >
                         Export
                     </ListboxItem>
@@ -92,7 +106,7 @@ const GraphTools: React.FC = () => {
                             </div>
                         }
                         onClick={() =>
-                            console.log('jeronimo Exporting graph: ', graph)
+                            console.log('Check if the graph is bipartite')
                         }
                     >
                         Is Bipartite?
@@ -109,6 +123,7 @@ const GraphTools: React.FC = () => {
                                 size={30}
                             />
                         }
+                        onClick={() => setImport(false)}
                         onPress={onOpen}
                     >
                         Custom graph
@@ -146,12 +161,16 @@ const GraphTools: React.FC = () => {
                     </ListboxItem>
                 </ListboxSection>
             </Listbox>
-            <CustomGraphModal
-                isOpen={isOpen}
-                onOpenChange={onOpenChange}
-                graphData={graphData}
-                setGraphData={setGraphData}
-            />
+            {isImport ? (
+                <ImportModal isOpen={isOpen} onOpenChange={onOpenChange} />
+            ) : (
+                <CustomGraphModal
+                    isOpen={isOpen}
+                    onOpenChange={onOpenChange}
+                    graphData={graphData}
+                    setGraphData={setGraphData}
+                />
+            )}
         </article>
     )
 }

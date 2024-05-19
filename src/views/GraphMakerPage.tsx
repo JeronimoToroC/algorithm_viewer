@@ -68,6 +68,12 @@ const GraphMakerPage = () => {
             setEdges((eds) =>
                 addEdge({ ...connection, id: `${eds.length + 1}` }, eds)
             )
+            dispatch(
+                addNewEdge({
+                    ...connection,
+                    id: `${edges.length + 1}`,
+                })
+            )
         },
         [setEdges]
     )
